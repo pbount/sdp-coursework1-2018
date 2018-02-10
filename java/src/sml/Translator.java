@@ -11,7 +11,8 @@ import java.util.Scanner;
  */
 public class Translator {
 
-    private static final String PATH = "coursework/cw-one/";
+    private static final String PATH = System.getProperty("user.dir") + "/sml/";
+
     // word + line is the part of the current line that's not yet processed
     // word has no whitespace
     // If word and line are not empty, line begins with whitespace
@@ -93,6 +94,16 @@ public class Translator {
                 s1 = scanInt();
                 return new LinInstruction(label, r, s1);
         }
+
+        // TODO: SUB
+
+        // TODO: MUL
+
+        // TODO: DIV
+
+        // TODO: OUT
+
+        // TODO: BNZ
 
         // You will have to write code here for the other instructions.
 
