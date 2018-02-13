@@ -7,9 +7,9 @@ public abstract class Instruction {
     // Constructor: an instruction with label l and opcode op
     // (op must be an operation of the language)
 
-    public Instruction(String l, String op) {
-        this.label = l;
-        this.opcode = op;
+    public Instruction(String label, String opcode) {
+        this.label = label;
+        this.opcode = opcode;
     }
 
     // = the representation "label: opcode" of this Instruction
