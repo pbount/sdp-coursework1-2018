@@ -32,7 +32,7 @@ public class Machine {
     public Machine() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
 
         if (args.length != 1) {
             System.err.println("Incorrect number of arguments - Machine <file> - required");

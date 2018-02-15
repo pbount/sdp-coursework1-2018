@@ -7,28 +7,37 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /*
- * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
+ *  The translator of an SML program.
  */
 public class Translator {
 
     private static final String PATH = System.getProperty("user.dir") + "/sml/";
 
-    // word + line is the part of the current line that's not yet processed
-    // word has no whitespace
-    // If word and line are not empty, line begins with whitespace
+    /*
+     *  word + line is the part of the current line that's not yet processed.
+     *  word has no whitespace. If word and line are not empty, line begins WITH whitespace!
+     */
     private String line = "";
-    private Labels labels; // The labels of the program being translated
+    private Labels labels;                  // The labels of the program being translated
     private ArrayList<Instruction> program; // The program to be created
-    private String fileName; // source file of SML code
+    private String fileName;                // source file of SML code
 
     public Translator(String fileName) {
         this.fileName = PATH + fileName;
     }
 
-    // translate the small program in the file into lab (the labels) and
-    // prog (the program)
-    // return "no errors were detected"
-    public boolean readAndTranslate(Labels lab, ArrayList<Instruction> prog) {
+
+
+    /**
+     *   Translates the small program in the file, into lab (the labels) and
+     *   prog (the program). returns true if no errors are detected.
+     *
+     * @param lab       The labels of the SML probram in order.
+     * @param prog      The ArrayList of instructions representing the program in order.
+     * @return          True if no problems are found and False otherwise.
+     * @throws NoSuchMethodException
+     */
+    public boolean readAndTranslate(Labels lab, ArrayList<Instruction> prog) throws NoSuchMethodException {
 
         try (Scanner sc = new Scanner(new File(fileName))) {
             // Scanner attached to the file chosen by the user
@@ -70,12 +79,19 @@ public class Translator {
         return true;
     }
 
-    /*
-     *  line should consist of an MML instruction, with its label already
-     *  removed. Translate line into an instruction with label label
-     *  and return the instruction
+    /**
+     *  line should consist of an SML instruction, with its label already
+     *  removed. Translate line into an instruction with label "label"
+     *  and return the instruction.
+     *
+     * @param label         Receives a label which represents the label of the instruction
+     *                      inside the program.
+     * @return              Returns a properly instantiated instruction using the label,
+     *                      the instruction name and the remaining line which should
+     *                      contain the registers for the operation.
+     * @throws NoSuchMethodException
      */
-    public Instruction getInstruction(String label){
+    public Instruction getInstruction(String label) throws NoSuchMethodException {
         int s1; // Possible operands of the instruction
         int s2;
         int r;
@@ -88,6 +104,7 @@ public class Translator {
 
         TranslatorWithReflection t = new TranslatorWithReflection();
 
+        /*
         try {
 
             t.reflect(label,ins, line);
@@ -129,13 +146,17 @@ public class Translator {
                 x = scan();
                 return new BnzInstruction(label, r, x);
         }
+        */
 
-        return null;
+        return t.reflect(label, ins, line);
     }
 
-    /*
-     * Return the first word of line and remove it from line. If there is no
-     * word, return ""
+    /**
+     * Returns the first word of line and removes the returned word from line. If there is no
+     * word, returns ""
+     *
+     * @return          Returns the first word of the String "line" and removes it
+     *                  from the variable. If no words are found returns "".
      */
     private String scan() {
         line = line.trim();
@@ -151,8 +172,13 @@ public class Translator {
         return word;
     }
 
-    // Return the first word of line as an integer. If there is
-    // any error, return the maximum int
+    /**
+     * Returns the first word of line as an integer and removes the returned word
+     * from line. If there is no word, returns Integer.MAX_VALUE
+     *
+     * @return          Returns the first word of the String "line" as an integer and removes it
+     *                  from the variable. If no words are found returns Integer.MAX_VALUE.
+     */
     private int scanInt() {
         String word = scan();
         if (word.length() == 0) {
