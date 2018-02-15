@@ -1,8 +1,6 @@
 package sml
 
-import sml.instructions.AddInstruction
-import sml.instructions.LinInstruction
-import sml.instructions.NoOpInstruction
+import sml.instructions.*
 import java.io.File
 import java.io.IOException
 import java.util.Scanner
@@ -12,6 +10,12 @@ import kotlin.collections.ArrayList
  * The machine language interpreter
  */
 data class Machine(var pc: Int, val noOfRegisters: Int) {
+
+    // root of files
+    private val PATH = System.getProperty("user.dir") + "/sml/"
+    // input line of file
+    private var line: String = ""
+
     // The labels in the SML program, in the order in which
     // they appear (are defined) in the program
 
@@ -54,17 +58,13 @@ data class Machine(var pc: Int, val noOfRegisters: Int) {
         }
     }
 
-    // root of files
-    private val PATH = System.getProperty("user.dir") + "/"
-    // input line of file
-    private var line: String = ""
-
     /**
      * translate the small program in the file into lab (the labels) and prog (the program)
      * return "no errors were detected"
      */
     fun readAndTranslate(file: String): Boolean {
-        val fileName = PATH + file // source file of SML code
+        val fileName = PATH +  file // source file of SML code
+        println(PATH);
         return try {
             Scanner(File(fileName)).use { sc ->
                 // Scanner attached to the file chosen by the user
@@ -111,6 +111,28 @@ data class Machine(var pc: Int, val noOfRegisters: Int) {
                 r = scanInt()
                 s1 = scanInt()
                 LinInstruction(label, r, s1)
+            }
+            "sub" -> {
+                r = scanInt()
+                s1 = scanInt()
+                s2 = scanInt()
+                SubInstruction(label, r, s1, s2)
+            }
+            "div" -> {
+                r = scanInt()
+                s1 = scanInt()
+                s2 = scanInt()
+                DivInstruction(label, r, s1, s2)
+            }
+            "mul" -> {
+                r = scanInt()
+                s1 = scanInt()
+                s2 = scanInt()
+                MulInstruction(label, r, s1, s2)
+            }
+            "out" -> {
+                r = scanInt()
+                OutInstruction(label, r)
             }
         // You will have to write code here for the other instructions
             else -> {
