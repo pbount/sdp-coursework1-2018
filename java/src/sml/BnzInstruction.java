@@ -22,4 +22,9 @@ public class BnzInstruction extends Instruction{
             m.setPc(position);
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " " + register + " jump to " + jumpTo;
+    }
 }

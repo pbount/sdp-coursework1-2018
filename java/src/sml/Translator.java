@@ -75,7 +75,7 @@ public class Translator {
      *  removed. Translate line into an instruction with label label
      *  and return the instruction
      */
-    public Instruction getInstruction(String label) {
+    public Instruction getInstruction(String label){
         int s1; // Possible operands of the instruction
         int s2;
         int r;
@@ -85,6 +85,17 @@ public class Translator {
             return null;
 
         String ins = scan();
+
+        TranslatorWithReflection t = new TranslatorWithReflection();
+
+        try {
+
+            t.reflect(label,ins, line);
+
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
         switch (ins) {
             case "add":
                 r = scanInt();
