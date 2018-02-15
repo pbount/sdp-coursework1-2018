@@ -98,6 +98,7 @@ data class Machine(var pc: Int, val noOfRegisters: Int) {
         val s1: Int // Possible operands of the instruction
         val s2: Int
         val r: Int
+        val x: String
 
         val ins = scan()
         return when (ins) { // replace with reflection
@@ -133,6 +134,11 @@ data class Machine(var pc: Int, val noOfRegisters: Int) {
             "out" -> {
                 r = scanInt()
                 OutInstruction(label, r)
+            }
+            "bnz" -> {
+                r = scanInt()
+                x = scan()
+                BnzInstruction(label, r, x)
             }
         // You will have to write code here for the other instructions
             else -> {
