@@ -1,7 +1,7 @@
-### sdp-coursework1-2018
-#Assignment One
-###Simple Machine Language (SML)
-####Software Design and Programming and Software and Programming III
+# sdp-coursework1-2018
+# Assignment One
+### Simple Machine Language (SML)
+#### Software Design and Programming and Software and Programming III
 _Spring Term 2018_
 
 The  sample  code  mentioned  in  the  text  can  be  found  on
